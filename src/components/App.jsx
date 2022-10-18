@@ -19,13 +19,15 @@ export class App extends Component {
   componentDidMount() {
     const getName = localStorage.getItem('name');
     const parcedName = JSON.parse(getName);
-    this.setState({
-      contacts: parcedName,
-    });
+    if (parcedName) {
+      this.setState({
+        contacts: parcedName,
+      });
+    }
   }
 
-  componentDidUpdate(prevState) {
-    if (this.state.contacts !== prevState) {
+  componentDidUpdate(PrevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
       localStorage.setItem('name', JSON.stringify(this.state.contacts));
     }
   }
